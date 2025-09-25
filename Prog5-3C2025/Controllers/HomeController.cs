@@ -24,6 +24,24 @@ namespace Prog5_3C2025.Controllers
             return View();
         }
 
+        #region Suma2
+        public IActionResult Suma2()
+        {
+            return View();
+        }
+
+        public IActionResult add2()
+        {
+            int num1 = Convert.ToInt32(HttpContext.Request.Form["tx1"].ToString());
+            int num2 = Convert.ToInt32(HttpContext.Request.Form["tx2"].ToString());
+            int result = num1 + num2;
+            ViewBag.SumResult2 = result.ToString();
+            return View("Suma2");
+        }
+
+        #endregion Suma2
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
