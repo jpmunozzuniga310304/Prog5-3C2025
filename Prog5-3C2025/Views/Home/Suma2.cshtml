@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Sumar 2 Números";
+
+}
+
+<h1 class="display-4">Sumando 2 números</h1>
+
+<form asp-controller="Home" asp-action="add2" method="post">
+    <span>Ingrese número 1: </span><input id="t1" type="text" name="tx1" /> <br />
+    <span>Ingrese número 2: </span><input id="t2" type="text" name="tx2" /> <br />
+    <input id="Submit1" type="submit" value="Sumar 2 números" />
+</form>
+
+<h2>La suma es: @ViewBag.SumResult2</h2>
+
+
+
+
+
+
+
+
+
+
+
+
