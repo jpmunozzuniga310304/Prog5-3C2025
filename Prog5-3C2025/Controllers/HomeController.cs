@@ -110,6 +110,44 @@ namespace Prog5_3C2025.Controllers
             return View("bCalc");
         }
 
+        public IActionResult Modulo()
+        {
+            try
+            {
+                decimal num1 = Convert.ToDecimal(HttpContext.Request.Form["n1"].ToString());
+                decimal num2 = Convert.ToDecimal(HttpContext.Request.Form["n2"].ToString());
+                decimal result = num1 % num2; // operador mod en C#
+                ViewBag.Result = "Resultado del modulo: " + result.ToString();
+            }
+            catch (Exception)
+            {
+                ViewBag.Result = "Datos erroneos ingresados.";
+            }
+            return View("bCalc");
+        }
+
+        public IActionResult RaizCuadrada()
+        {
+            try
+            {
+                decimal num = Convert.ToDecimal(HttpContext.Request.Form["n1"].ToString());
+                if (num < 0)
+                {
+                    ViewBag.Result = "No se puede calcular la raíz cuadrada de un número negativo."; 
+                }
+                else
+                {
+                    double result = Math.Sqrt((double)num); // convertimos decimal a double
+                    ViewBag.Result = "Resultado de la raíz cuadrada: " + result.ToString();
+                }
+            }
+            catch (Exception)
+            {
+                ViewBag.Result = "Datos erroneos ingresados.";
+            }
+            return View("bCalc");
+        }
+
         #endregion Calculadora basica
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
