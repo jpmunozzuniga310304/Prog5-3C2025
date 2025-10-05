@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
+using Prog5_3C2025.Controllers.ActionFilters;
 using Prog5_3C2025.Models;
 using System.Diagnostics;
 
 namespace Prog5_3C2025.Controllers
 {
+    [LogActionFilter]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -14,8 +16,7 @@ namespace Prog5_3C2025.Controllers
             _logger = logger;
         }
 
-    
-
+   
         public IActionResult Index()
         {
             var estudiante = new Estudiante(1, "Juan Pérez", 95);
@@ -40,28 +41,75 @@ namespace Prog5_3C2025.Controllers
         {
             return View();
         }
-        public IActionResult NonAction()
-        {
-            return View();
-        }
-   
+
+        #region Action Name
 
         [ActionName("Sumar")]
         public IActionResult Sum()
         {
-            int num1 = Convert.ToInt32(HttpContext.Request.Form["tx1"].ToString());
-            int num2 = Convert.ToInt32(HttpContext.Request.Form["tx2"].ToString());
-            ViewBag.Result = (num1 + num2).ToString();
+            try
+            {
+                int num1 = Convert.ToInt32(HttpContext.Request.Form["tx1"].ToString());
+                int num2 = Convert.ToInt32(HttpContext.Request.Form["tx2"].ToString());
+                ViewBag.Result = (num1 + num2).ToString();
+            }
+            catch (Exception)
+            {
+                ViewBag.Result = "Datos erroneos ingresados.";
+            }
             return View("ActionName");
-        }
-        public string SumTemp()
-        {
-            int num1 = Convert.ToInt32(HttpContext.Request.Form["tx1"].ToString());
-            int num2 = Convert.ToInt32(HttpContext.Request.Form["tx2"].ToString());
-            return (num1 + num2).ToString();
+
         }
 
-        #region ActionVerbs
+        #endregion Action Name
+
+        #region Sin Non Action 
+        public IActionResult SinNonAction()
+        {
+            return View();
+        }
+        public int SumTemp(int num1, int num2)
+        {
+            try
+            {
+                num1 = Convert.ToInt32(HttpContext.Request.Form["tx1"].ToString());
+                num2 = Convert.ToInt32(HttpContext.Request.Form["tx2"].ToString());
+                return num1 + num2; // Devuelve int, no string
+            }
+            catch (Exception)
+            {
+                ViewBag.Result = "Datos erroneos ingresados.";
+                return 0; // Valor por defecto para que todas las rutas retornen algo
+            }
+        }
+
+        #endregion Sin Non Action 
+
+        #region Con Non Action 
+        public IActionResult ConNonAction()
+        {
+            return View();
+        }
+
+        [NonAction]
+        public int SumTemp2(int num1, int num2)
+        {
+            try
+            {
+                num1 = Convert.ToInt32(HttpContext.Request.Form["tx1"].ToString());
+                num2 = Convert.ToInt32(HttpContext.Request.Form["tx2"].ToString());
+                return num1 + num2; // Devuelve int, no string
+            }
+            catch (Exception)
+            {
+                ViewBag.Result = "Datos erroneos ingresados.";
+                return 0; // Valor por defecto para que todas las rutas retornen algo
+            }
+        }
+
+        #endregion Con Non Action 
+
+        #region Action Verbs
         public IActionResult ActionVerbs()
         {
             return View();
@@ -70,13 +118,21 @@ namespace Prog5_3C2025.Controllers
         [HttpPost]
         public IActionResult add3()
         {
-            int num1 = Convert.ToInt32(HttpContext.Request.Form["tx1"].ToString());
-            int num2 = Convert.ToInt32(HttpContext.Request.Form["tx2"].ToString());
-            ViewBag.Result = (num1 + num2).ToString();
+            try
+            {
+                int num1 = Convert.ToInt32(HttpContext.Request.Form["tx1"].ToString());
+                int num2 = Convert.ToInt32(HttpContext.Request.Form["tx2"].ToString());
+                ViewBag.Result = (num1 + num2).ToString();
+            }
+            catch (Exception)
+            {
+                ViewBag.Result = "Datos erroneos ingresados.";
+            }
             return View("ActionVerbs");
         }
 
-        #endregion ActionVerbs
+        #endregion Action Verbs
+
         #region Suma2
         public IActionResult Suma2()
         {
@@ -94,7 +150,7 @@ namespace Prog5_3C2025.Controllers
 
         #endregion Suma2
 
-        #region Calculadora basica
+        #region Calculadora Basica
         public IActionResult bCalc()
         {
             return View();
@@ -203,7 +259,7 @@ namespace Prog5_3C2025.Controllers
 
 
 
-        #endregion Calculadora basica
+        #endregion Calculadora Basica
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
