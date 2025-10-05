@@ -1,6 +1,7 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using Prog5_3C2025.Models;
+using System.Diagnostics;
 
 namespace Prog5_3C2025.Controllers
 {
@@ -13,15 +14,63 @@ namespace Prog5_3C2025.Controllers
             _logger = logger;
         }
 
+    
+
         public IActionResult Index()
         {
             var estudiante = new Estudiante(1, "Juan Pérez", 95);
             return View(estudiante);
         }
 
+        [OutputCache(Duration = 10)]
+        public string IndexII()
+        {
+            return DateTime.Now.ToString("T"); //muestra el mismo resultado durante 10 segundos
+
+        }
         public IActionResult Privacy()
         {
             return View();
+        }
+        public ActionResult About()
+        {
+            return View();
+        }
+        public IActionResult ActionName()
+        {
+            return View();
+        }
+        public IActionResult NonAction()
+        {
+            return View();
+        }
+        public IActionResult ActionVerbs()
+        {
+            return View();
+        }
+
+        [ActionName("Sumar")]
+        public IActionResult Sum()
+        {
+            int num1 = Convert.ToInt32(HttpContext.Request.Form["tx1"].ToString());
+            int num2 = Convert.ToInt32(HttpContext.Request.Form["tx2"].ToString());
+            ViewBag.Result = (num1 + num2).ToString();
+            return View("ActionName");
+        }
+        public string SumTemp()
+        {
+            int num1 = Convert.ToInt32(HttpContext.Request.Form["tx1"].ToString());
+            int num2 = Convert.ToInt32(HttpContext.Request.Form["tx2"].ToString());
+            return (num1 + num2).ToString();
+        }
+
+        [HttpPost]
+        public IActionResult add3()
+        {
+            int num1 = Convert.ToInt32(HttpContext.Request.Form["tx1"].ToString());
+            int num2 = Convert.ToInt32(HttpContext.Request.Form["tx2"].ToString());
+            ViewBag.Result = (num1 + num2).ToString();
+            return View("ActionVerbs");
         }
 
         #region Suma2
@@ -148,6 +197,8 @@ namespace Prog5_3C2025.Controllers
             return View("bCalc");
         }
 
+
+
         #endregion Calculadora basica
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -155,5 +206,10 @@ namespace Prog5_3C2025.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
     }
 }
+
+
+
