@@ -102,7 +102,7 @@ namespace Prog5_3C2025.Controllers
             }
             catch (Exception)
             {
-                ViewBag.Result = "Datos erroneos ingresados.";
+                ViewBag.SumResult2 = "Datos erroneos ingresados.";
                 return 0; // Valor por defecto para que todas las rutas retornen algo
             }
         }
@@ -150,7 +150,7 @@ namespace Prog5_3C2025.Controllers
             }
             catch (Exception)
             {
-                ViewBag.Result = "Datos erroneos ingresados.";
+                ViewBag.SumResult2 = "Datos erroneos ingresados.";
             }
             return View("Suma2");
 
