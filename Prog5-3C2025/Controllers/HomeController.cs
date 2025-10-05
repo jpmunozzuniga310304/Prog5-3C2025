@@ -44,10 +44,7 @@ namespace Prog5_3C2025.Controllers
         {
             return View();
         }
-        public IActionResult ActionVerbs()
-        {
-            return View();
-        }
+   
 
         [ActionName("Sumar")]
         public IActionResult Sum()
@@ -64,6 +61,12 @@ namespace Prog5_3C2025.Controllers
             return (num1 + num2).ToString();
         }
 
+        #region ActionVerbs
+        public IActionResult ActionVerbs()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult add3()
         {
@@ -73,6 +76,7 @@ namespace Prog5_3C2025.Controllers
             return View("ActionVerbs");
         }
 
+        #endregion ActionVerbs
         #region Suma2
         public IActionResult Suma2()
         {
