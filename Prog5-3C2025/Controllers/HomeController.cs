@@ -141,11 +141,19 @@ namespace Prog5_3C2025.Controllers
 
         public IActionResult add2()
         {
-            int num1 = Convert.ToInt32(HttpContext.Request.Form["tx1"].ToString());
-            int num2 = Convert.ToInt32(HttpContext.Request.Form["tx2"].ToString());
-            int result = num1 + num2;
-            ViewBag.SumResult2 = result.ToString();
+            try
+            {
+                int num1 = Convert.ToInt32(HttpContext.Request.Form["tx1"].ToString());
+                int num2 = Convert.ToInt32(HttpContext.Request.Form["tx2"].ToString());
+                int result = num1 + num2;
+                ViewBag.SumResult2 = result.ToString();
+            }
+            catch (Exception)
+            {
+                ViewBag.Result = "Datos erroneos ingresados.";
+            }
             return View("Suma2");
+
         }
 
         #endregion Suma2
