@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Prog5_3C2025.Data;
 
@@ -11,9 +12,11 @@ using Prog5_3C2025.Data;
 namespace Prog5_3C2025.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251019022006_Enfermedades")]
+    partial class Enfermedades
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,15 +25,19 @@ namespace Prog5_3C2025.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Prog5_3C2025.Models.Clínica", b =>
+            modelBuilder.Entity("Prog5_3C2025.Models.CentroVacunacion", b =>
                 {
-                    b.Property<int>("IddelaClínica")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IddelaClínica"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CantonId")
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProvinciaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -62,25 +69,20 @@ namespace Prog5_3C2025.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                    b.Property<int>("DistritoId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("FechaModificacion")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("Edad")
+                        .HasColumnType("int");
 
-                    b.Property<string>("NombredelaClínica")
+                    b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProvinciaId")
-                        .HasColumnType("int");
+                    b.HasKey("Id");
 
-                    b.HasKey("IddelaClínica");
-
-                    b.ToTable("Clínica");
+                    b.ToTable("EstudianteUH");
                 });
 #pragma warning restore 612, 618
         }
