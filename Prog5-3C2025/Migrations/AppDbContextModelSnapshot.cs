@@ -22,19 +22,15 @@ namespace Prog5_3C2025.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Prog5_3C2025.Models.CentroVacunacion", b =>
+            modelBuilder.Entity("Prog5_3C2025.Models.Clínica", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IddelaClínica")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IddelaClínica"));
 
-                    b.Property<string>("Descripcion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProvinciaId")
+                    b.Property<int>("CantonId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -66,20 +62,25 @@ namespace Prog5_3C2025.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                    b.Property<int>("DistritoId")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int>("Edad")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("FechaModificacion")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("Nombre")
+                    b.Property<string>("NombredelaClínica")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<int>("ProvinciaId")
+                        .HasColumnType("int");
 
-                    b.ToTable("EstudianteUH");
+                    b.HasKey("IddelaClínica");
+
+                    b.ToTable("Clínica");
                 });
 #pragma warning restore 612, 618
         }
